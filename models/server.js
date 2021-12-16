@@ -9,6 +9,7 @@ class Server {
         this.app = express();
         this.port = process.env.PORT;
         this.usuariosRoute = '/api/usuarios';
+        this.authPath = '/api/auth';
 
         //Conectar a base de datos
         this.conectarDB();
@@ -20,7 +21,7 @@ class Server {
         this.routes();
     }
 
-    
+
 
     async conectarDB() {
         await dbConnection();
@@ -41,6 +42,7 @@ class Server {
 
     routes() {
         this.app.use(this.usuariosRoute, require('../routes/usuario'));
+        this.app.use(this.authPath, require('../routes/auth'));
     }
 
     listen() {
