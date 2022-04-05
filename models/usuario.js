@@ -1,8 +1,7 @@
+
 const { Schema, model } = require('mongoose');
 
-
-const UsuarioScheme = Schema({
-
+const UsuarioSchema = Schema({
     nombre: {
         type: String,
         required: [true, 'El nombre es obligatorio']
@@ -32,17 +31,13 @@ const UsuarioScheme = Schema({
         type: Boolean,
         default: false
     },
-
 });
 
 
-//Para no mostrar el __v, password y almacenar el resto en usuario
-UsuarioScheme.methods.toJSON = function () {
-    const { __v, password,_id, ...usuario } = this.toObject();
-    usuario.uid = _id;
-    return usuario
+
+UsuarioSchema.methods.toJSON = function() {
+    const { __v, password, ...usuario  } = this.toObject();
+    return usuario;
 }
 
-
-
-module.exports = model('Usuario', UsuarioScheme);
+module.exports = model( 'Usuario', UsuarioSchema );
